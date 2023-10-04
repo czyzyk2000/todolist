@@ -106,3 +106,12 @@ ul li span {
 ul li span:hover {
   background: #bfc0c2;
 }
+
+.images {
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
