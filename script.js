@@ -1,27 +1,42 @@
-let input = document.getElementById("myinp");
-let listcontainer = document.getElementById("list-container");
+const input = document.getElementsByClassName("addInput")[0];
+const listContainer = document.getElementsByClassName("listContainer")[0];
+
+function createListItem(taskContent) {
+  const listItem = document.createElement("li");
+  listItem.textContent = taskContent;
+
+  const deleteButton = document.createElement("span");
+  deleteButton.textContent = "✗";
+  listItem.appendChild(deleteButton);
+
+  return listItem;
+}
+
+if (listContainer) {
+  listContainer.addEventListener("click", handleListClick, false);
+}
+
+function handleListClick(event) {
+  const clickedElement = event.target;
+
+  if (clickedElement.tagName === "LI") {
+    clickedElement.classList.toggle("checked");
+  } else if (clickedElement.tagName === "SPAN") {
+    clickedElement.parentElement.remove();
+  }
+}
 
 function addTask() {
-  if (myinp.value === "") {
-    alert("Musisz cos wpisac");
+  const taskInputValue = input.value.trim();
+
+  if (taskInputValue === "") {
+    const EMPTY_INPUT_MESSAGE = "Musisz coś wpisać";
+    alert(EMPTY_INPUT_MESSAGE);
   } else {
-    let li = document.createElement("li");
-    li.innerHTML = input.value;
-    listcontainer.appendChild(li);
-    let span = document.createElement("span");
-    span.innerHTML = "✗";
-    li.appendChild(span);
-  }
-  input.value = "";
-}
-listcontainer.addEventListener(
-  "click",
-  function (e) {
-    if (e.target.tagName === "LI") {
-      e.target.classList.toggle("checked");
-    } else if (e.target.tagName === "SPAN") {
-      e.target.parentElement.remove();
+    const listItem = createListItem(taskInputValue);
+    if (listContainer) {
+      listContainer.appendChild(listItem);
     }
-  },
-  false
-);
+    input.value = "";
+  }
+}

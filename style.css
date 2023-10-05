@@ -27,10 +27,11 @@ footer {
   justify-content: center;
   flex-direction: column;
 }
-p {
+h2 {
   margin: 5px;
+  font-family: "Nunito", sans-serif;
 }
-.p1 {
+.firstH1 {
   margin-top: 30px;
 }
 
