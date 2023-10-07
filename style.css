@@ -31,7 +31,7 @@ h2 {
   margin: 5px;
   font-family: "Nunito", sans-serif;
 }
-.firstH1 {
+h2:first-child {
   margin-top: 30px;
 }
 
@@ -47,7 +47,7 @@ body {
 }
 .container {
   width: 100%;
-  max-width: 540px;
+  max-width: 600px;
   background: whitesmoke;
   margin: 100px auto 20px;
   padding: 40px;
@@ -84,7 +84,25 @@ ul li.checked {
 ul li.checked::before {
   background-image: url(checked.png);
 }
-button {
+
+.clearCompleted,
+.allButton,
+.activeButton,
+.completedButton {
+  position: relative;
+  float: right;
+  margin-left: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 40px;
+  background: transparent;
+  color: #555;
+  border: 1px solid #555;
+  padding: 10px 20px;
+}
+
+.addButton {
   border: none;
   outline: none;
   padding: 16px 50px;
@@ -115,4 +133,17 @@ ul li span:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.filters li {
+  display: inline;
+}
+.filters li a {
+  color: inherit;
+  margin: 3px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.filters {
+  list-style: none;
 }
