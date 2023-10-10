@@ -44,17 +44,17 @@ function filterTasks(status) {
 
 function createListItem(taskContent, id, status) {
   const listItem = document.createElement("li");
+  const taskContainer = document.createElement("div");
+  const taskName = document.createElement("div");
+  const deleteButton = document.createElement("span");
+  const taskEdit = document.createElement("button");
+
   listItem.setAttribute("id", id);
 
-  const taskContainer = document.createElement("div");
-
-  const taskName = document.createElement("div");
   taskName.textContent = taskContent;
 
-  const deleteButton = document.createElement("span");
   deleteButton.textContent = "✗";
 
-  const taskEdit = document.createElement("button");
   taskEdit.textContent = "Edit";
   taskEdit.classList.add("edit");
 
