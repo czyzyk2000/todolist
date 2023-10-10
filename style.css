@@ -13,12 +13,16 @@ header {
   padding-left: 20px;
   margin-bottom: 25px;
 }
+
 input {
   flex: 1;
   border: none;
   outline: none;
   background: transparent;
   padding: 10px;
+}
+div[contenteditable="true"]:focus {
+  outline: none;
 }
 
 footer {
@@ -65,6 +69,7 @@ ul li {
   cursor: pointer;
   position: relative;
 }
+
 ul li::before {
   content: "";
   position: absolute;
@@ -101,7 +106,23 @@ ul li.checked::before {
   border: 1px solid #555;
   padding: 10px 20px;
 }
-
+.edit {
+  position: relative;
+  float: right;
+  margin-right: 3em;
+  cursor: pointer;
+  outline: none;
+  border-radius: 40px;
+  background: transparent;
+  color: #555;
+  border: 1px solid #555;
+  padding: 10px 20px;
+  margin-top: -1.5em;
+}
+.edit:hover {
+  background: #555;
+  color: white;
+}
 .addButton {
   border: none;
   outline: none;
@@ -115,7 +136,7 @@ ul li.checked::before {
 ul li span {
   position: absolute;
   right: 0;
-  top: 5px;
+  top: 12px;
   width: 40px;
   height: 40px;
   font-size: 24px;
