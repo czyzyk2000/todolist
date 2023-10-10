@@ -1,3 +1,5 @@
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
 const input = document.querySelector(".addInput");
 const listContainer = document.querySelector(".listContainer");
 const completedListContainer = document.querySelector(
@@ -5,27 +7,32 @@ const completedListContainer = document.querySelector(
 );
 const allButton = document.querySelector(".allButton");
 const clearCompletedButton = document.querySelector(".clearCompleted");
+
 allButton.addEventListener("click", function () {
   filterTasks("all");
 });
-let tasks = [];
+
+function saveTasksToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 function renderTasks(filteredTasks) {
   listContainer.innerHTML = "";
 
   filteredTasks.forEach((task) => {
-    const listItem = createListItem(task.title, task.status);
+    const listItem = createListItem(task.title, task.id, task.status);
     listContainer.appendChild(listItem);
   });
 }
 
 clearCompletedButton.addEventListener("click", function () {
-  clearAllTasks();
+  clearCompletedTasks();
 });
 
-function clearAllTasks() {
-  tasks.length = 0;
-  renderTasks([]);
+function clearCompletedTasks() {
+  tasks = tasks.filter((task) => task.status === "active");
+  renderTasks(tasks);
+  saveTasksToLocalStorage();
 }
 
 function filterTasks(status) {
@@ -64,12 +71,14 @@ function createListItem(taskContent, id, status) {
   deleteButton.addEventListener("click", function () {
     // Usuwanie całego zadania po kliknięciu "✗"
     listItem.remove();
+    tasks = tasks.filter((task) => task.id !== id);
+    saveTasksToLocalStorage();
   });
 
   taskEdit.addEventListener("click", function () {
     if (taskEdit.innerText === "Edit") {
       taskName.contentEditable = true;
-      const selection = window.getSelection(); // zazaczenie tekstu
+      const selection = window.getSelection();
       const range = document.createRange();
       range.selectNodeContents(taskName);
       selection.removeAllRanges();
@@ -82,22 +91,17 @@ function createListItem(taskContent, id, status) {
       const newTaskName = taskName.textContent.trim();
 
       tasks = tasks.map((task) => {
-        if (task.id === +listItem.id) {
+        if (task.id === id) {
           task.title = newTaskName;
         }
         return task;
       });
+
+      saveTasksToLocalStorage();
     }
   });
 
   return listItem;
-}
-
-function clearCompletedTasks() {
-  const activeTasks = tasks.filter((task) => task.status === "active");
-  tasks.length = 0; // Wyczyszczenie tablicy
-  tasks.push(...activeTasks); // Dodanie z powrotem aktywnych zadań
-  renderTasks(activeTasks);
 }
 
 if (listContainer) {
@@ -109,18 +113,20 @@ function handleListClick(event) {
 
   if (clickedElement.tagName === "LI") {
     clickedElement.classList.toggle("checked");
-    tasks.map((task) => {
+    tasks = tasks.map((task) => {
       if (task.id === +clickedElement.id) {
         task.status = task.status === "active" ? "completed" : "active";
       }
       return task;
     });
+
+    saveTasksToLocalStorage();
   } else if (clickedElement.tagName === "SPAN") {
-    // New Logic: Ensuring task removal from array
+    clickedElement.parentElement.remove();
     tasks = tasks.filter(
       (task) => task.id !== +clickedElement.parentElement.id
     );
-    clickedElement.parentElement.remove();
+    saveTasksToLocalStorage();
   }
 }
 
@@ -131,18 +137,16 @@ input.addEventListener("keypress", function (event) {
   }
 });
 
-// Modified Function: Naming and added empty string check
 function addTask() {
   const taskInputValue = input.value.trim();
 
-  // Added: Check for empty string
   if (!taskInputValue) {
     alert("Please enter non-empty text");
-    return; // Exit function early to prevent further execution
+    return;
   }
 
   const id = new Date().valueOf();
-  const listItem = createListItem(taskInputValue, id);
+  const listItem = createListItem(taskInputValue, id, "active");
 
   tasks.push({
     id: id,
@@ -153,5 +157,7 @@ function addTask() {
   if (listContainer) {
     listContainer.appendChild(listItem);
   }
+
+  saveTasksToLocalStorage();
   input.value = "";
 }
