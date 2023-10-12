@@ -44,28 +44,31 @@ function filterTasks(status) {
 
 function createListItem(taskContent, id, status) {
   const listItem = document.createElement("li");
-  const taskContainer = document.createElement("div");
+  const taskNameContainer = document.createElement("div");
   const taskName = document.createElement("div");
+  const editContainer = document.createElement("div");
   const deleteButton = document.createElement("span");
   const taskEdit = document.createElement("button");
 
   listItem.setAttribute("id", id);
 
-  taskName.textContent = taskContent;
-
   deleteButton.textContent = "✗";
-
   taskEdit.textContent = "Edit";
   taskEdit.classList.add("edit");
+  deleteButton.classList.add("delete");
 
-  taskContainer.appendChild(taskName);
-  taskContainer.appendChild(deleteButton);
-
-  listItem.appendChild(taskContainer);
-  listItem.appendChild(taskEdit);
+  taskName.appendChild(document.createTextNode(taskContent));
+  taskNameContainer.appendChild(taskName);
+  taskNameContainer.contentEditable = true;
+  taskNameContainer.classList.add("taskName");
+  editContainer.appendChild(deleteButton);
+  editContainer.appendChild(taskEdit);
+  listItem.appendChild(taskNameContainer);
+  listItem.appendChild(editContainer);
 
   if (status === "completed") {
     listItem.classList.add("completed");
+    deleteButton.classList.add("line-through");
   }
 
   deleteButton.addEventListener("click", function () {
@@ -75,20 +78,29 @@ function createListItem(taskContent, id, status) {
     saveTasksToLocalStorage();
   });
 
+  listItem.addEventListener("click", function () {
+    // Usuwanie klasy "completed" z elementu "li" i klasy "line-through" z elementu "span"
+    if (listItem.classList.contains("completed")) {
+      listItem.classList.remove("completed");
+      deleteButton.classList.remove("line-through");
+    }
+  });
+
   taskEdit.addEventListener("click", function () {
     if (taskEdit.innerText === "Edit") {
-      taskName.contentEditable = true;
+      taskNameContainer.contentEditable = true;
+      taskNameContainer.focus();
       const selection = window.getSelection();
       const range = document.createRange();
-      range.selectNodeContents(taskName);
+      range.selectNodeContents(taskNameContainer);
       selection.removeAllRanges();
       selection.addRange(range);
       taskEdit.innerText = "Save";
     } else {
-      taskName.contentEditable = false;
+      taskNameContainer.contentEditable = false;
       taskEdit.innerText = "Edit";
 
-      const newTaskName = taskName.textContent.trim();
+      const newTaskName = taskNameContainer.textContent.trim();
 
       tasks = tasks.map((task) => {
         if (task.id === id) {
