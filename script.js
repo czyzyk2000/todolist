@@ -82,7 +82,7 @@ function createListItem(taskContent, id, status) {
     // Usuwanie klasy "completed" z elementu "li" i klasy "line-through" z elementu "span"
     if (listItem.classList.contains("completed")) {
       listItem.classList.remove("completed");
-      deleteButton.classList.remove("line-through");
+      deleteButton.classList.remove("line-task");
     }
   });
 

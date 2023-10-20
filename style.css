@@ -92,7 +92,7 @@ ul li::before {
   margin-right: 10px;
 }
 
-ul li.checked.taskName {
+ul li.checked .taskName {
   color: #555;
   text-decoration: line-through;
 }
@@ -115,6 +115,7 @@ ul li.checked::before {
   color: #555;
   border: 1px solid #555;
   padding: 10px 20px;
+  margin-left: 2px;
 }
 
 .edit:hover {
@@ -150,8 +151,7 @@ ul li span:hover {
 }
 .footerFilters {
   display: flex;
-  align-items: right;
-  justify-content: right;
+  justify-content: center;
 }
 .filters li {
   display: inline;
