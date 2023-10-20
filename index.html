@@ -13,10 +13,37 @@
     />
   </head>
   <body>
-    <h1>Todos</h1>
-    <header>
-      <input class="inp" id="myinp" type="text" placeholder="wpisz coś" />
-    </header>
+    <div class="container">
+      <h1>Todos <img src="icon.png" alt="todoicon" /></h1>
+      <header>
+        <input class="addInput" type="text" placeholder="wpisz coś" />
+        <button class="addButton" onclick="addTask()">Dodaj</button>
+      </header>
+    <div>
+      <ul class="listContainer">
+    </div>  
+
+  <div class="footerFilters">
+    <button onclick="filterTasks('all')" class="allButton">All</button>
+    <button onclick="filterTasks('active')" class="activeButton">Active</button>
+    <button onclick="filterTasks('completed')" class="completedButton">Completed</button>
+    <button onclick="clearCompletedTasks()" class="clearCompleted">Clear completed</button>
+  </div>
+ 
+    </div>
+      <footer>
+        <h2>Double-click to edit a todo</h2>
+        <h2>Created by Patryk</h2>
+        <h2>Dodatkowe informacje</h2>
+        <div class="images">
+         <a href="https://www.facebook.com/"><img src="icons8-facebook-50.png" alt="facebook"></a> 
+          <a href="https://www.tiktok.com/"><img src="icons8-tik-tok-48.png" alt="tiktok"></a>
+          <a href="https://www.github.com/"><img src="icons8-github-50.png" alt="github"></a>
+        </div>
+      </footer>
+     
     <script src="script.js"></script>
+   
+    
   </body>
 </html>

@@ -4,7 +4,6 @@ h1 {
   font-size: 50px;
   margin-bottom: 10px;
 }
-
 header {
   display: flex;
   align-items: center;
@@ -22,7 +21,6 @@ input {
   background: transparent;
   padding: 10px;
 }
-
 div[contenteditable="true"]:focus {
   outline: none;
 }
@@ -33,12 +31,10 @@ footer {
   justify-content: center;
   flex-direction: column;
 }
-
 h2 {
   margin: 5px;
   font-family: "Nunito", sans-serif;
 }
-
 h2:first-child {
   margin-top: 30px;
 }
@@ -53,7 +49,6 @@ body {
     rgba(0, 212, 255, 1) 100%
   );
 }
-
 .container {
   width: 100%;
   max-width: 600px;
@@ -62,41 +57,35 @@ body {
   padding: 40px;
   border-radius: 10px;
 }
-
 .container h1 img {
   width: 50px;
   margin-left: 5px;
 }
-
 ul li {
-  display: flex;
-  position: relative;
   list-style: none;
   font-size: 17px;
+  padding: 12px 8px 12px 50px;
   user-select: none;
   cursor: pointer;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
 ul li::before {
-  position: absolute;
-  left: -10px;
   content: "";
+  position: absolute;
   height: 28px;
   width: 28px;
   border-radius: 50%;
   background-image: url(unchecked.png);
   background-size: cover;
   background-position: center;
-  margin-right: 10px;
+  top: 10px;
+  left: 8px;
 }
-
-ul li.checked .taskName {
+ul li.checked {
   color: #555;
   text-decoration: line-through;
 }
-
 ul li.checked::before {
   background-image: url(checked.png);
 }
@@ -104,9 +93,10 @@ ul li.checked::before {
 .clearCompleted,
 .allButton,
 .activeButton,
-.completedButton,
-.edit,
-.addButton {
+.completedButton {
+  position: relative;
+  float: right;
+  margin-left: 10px;
   text-decoration: none;
   cursor: pointer;
   outline: none;
@@ -115,30 +105,46 @@ ul li.checked::before {
   color: #555;
   border: 1px solid #555;
   padding: 10px 20px;
-  margin-left: 2px;
 }
-
+.edit {
+  position: relative;
+  float: right;
+  margin-right: 3em;
+  cursor: pointer;
+  outline: none;
+  border-radius: 40px;
+  background: transparent;
+  color: #555;
+  border: 1px solid #555;
+  padding: 10px 20px;
+  margin-top: -1.5em;
+}
 .edit:hover {
   background: #555;
   color: white;
 }
-
 .addButton {
+  border: none;
+  outline: none;
+  padding: 16px 50px;
+  font-size: 16px;
   background: #ff5945;
   color: white;
+  cursor: pointer;
+  border-radius: 40px;
 }
-
 ul li span {
+  position: absolute;
+  right: 0;
+  top: 12px;
   width: 40px;
   height: 40px;
   font-size: 24px;
   border-radius: 50%;
   text-align: center;
 }
-
 ul li span:hover {
   background: #bfc0c2;
-  border-radius: 50%;
 }
 
 .images {
@@ -149,14 +155,9 @@ ul li span:hover {
   align-items: center;
   justify-content: center;
 }
-.footerFilters {
-  display: flex;
-  justify-content: center;
-}
 .filters li {
   display: inline;
 }
-
 .filters li a {
   color: inherit;
   margin: 3px;
@@ -164,10 +165,6 @@ ul li span:hover {
   border: 1px solid transparent;
   border-radius: 3px;
 }
-
 .filters {
   list-style: none;
-}
-.taskName {
-  margin-left: 20px;
 }
